@@ -9,13 +9,9 @@ export default eventHandler(async (event) => {
 	const pdf = await PDFDocument.create()
 	pdf.registerFontkit(fontkit)
 
-  // https://nitro.unjs.io/guide/assets#server-assets
-  const serverAssets = useStorage('assets/server')
-  const Overpass = await serverAssets.getItemRaw<ArrayBuffer>('fonts/overpass-regular.otf')
-  if (!Overpass) {
-    throw new Error('Font not found')
-  }
-	const font = await pdf.embedFont(Overpass)
+	const overpasFont = await useStorage('assets/server/fonts').getItemRaw('overpass-regular.otf')
+
+	const font = await pdf.embedFont(overpasFont)
 
 	const page = pdf.addPage()
 	const margin = 40
@@ -42,12 +38,11 @@ export default eventHandler(async (event) => {
 		})
 	}
 
-	const bytes = await pdf.save()
 
-	return new Response(await pdf.save(), {
-		headers: {
-			'Content-Type': 'application/pdf',
-			'Content-Length': bytes.byteLength.toString()
-		}
-	})
+	const pdfData = await pdf.save()
+
+	setResponseHeader(event, 'Content-Type', 'application/pdf')
+	setResponseHeader(event, 'Content-Length', pdfData.byteLength.toString())
+
+	return pdfData
 })

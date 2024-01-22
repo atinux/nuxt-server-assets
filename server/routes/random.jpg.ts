@@ -10,13 +10,14 @@ export default eventHandler(async (event) => {
   const imagesIds = await images.getKeys()
   const randomImageId = imagesIds[Math.floor(Math.random() * imagesIds.length)]
 
-  // const image = await images.getItemRaw<ArrayBuffer>(randomImageId)
   const image = await images.getItemRaw(randomImageId)
 
-  return new Response(image, {
-    headers: {
-      'Content-Type': 'image/jpeg',
-      // 'Content-Length': image!.byteLength.toString()
-    }
-  })
+  const meta = (await images.getMeta(
+    randomImageId
+  )) as unknown as { type: string; etag: string; mtime: string }
+  meta.type && setResponseHeader(event, 'content-type', meta.type)
+  meta.etag && setResponseHeader(event, 'etag', meta.etag)
+  meta.mtime && setResponseHeader(event, 'last-modified', meta.mtime)
+
+  return image
 })
