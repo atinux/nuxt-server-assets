@@ -44,3 +44,9 @@ function toggleColorMode() {
     </div>
   </UContainer>
 </template>
+
+<style lang="postcss">
+body {
+  @apply dark:bg-gray-950 bg-gray-50;
+}
+</style>
