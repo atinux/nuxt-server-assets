@@ -4,6 +4,10 @@
 // https://unsplash.com/@powwpic
 // https://unsplash.com/@timstief
 
+/**
+ * This is for example purpose and we don't recommend adding images in server assets
+ * As it increase the server bundle size!
+ */
 export default eventHandler(async (event) => {
   // https://nitro.unjs.io/guide/assets#server-assets
   const images = useStorage('assets/server/images')
