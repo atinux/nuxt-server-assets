@@ -9,7 +9,7 @@ This is a demonstration of how to use Nuxt with `server/assets/` to use static a
 Checkout these files to see how it works:
 - [`server/assets/`](./server/assets/): The server assets directory
 - [`server/routes/pdf.ts`](./server/routes/pdf.ts): The server route that generates the PDF by reading the font from `server/assets/fonts/`
-- [`server/routes/random.jpg.ts`](./server/routes/random.jpg.ts): The server route that return a random image from `server/assets/images/`
+- [`server/routes/random.jpg.ts`](./server/routes/random.jpg.ts): The server route that return a random image from `server/assets/images/` (note, this is for example purpose and we don't recommend doing this as it increase the server bundle size)
 
 When building your application, the `server/assets/` files will be copied to the `.output/server/chunks/raw` directory to be read on any serverless platform.
 
