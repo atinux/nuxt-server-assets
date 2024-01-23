@@ -9,9 +9,9 @@ export default eventHandler(async (event) => {
 	const pdf = await PDFDocument.create()
 	pdf.registerFontkit(fontkit)
 
-	const overpasFont = await useStorage('assets/server/fonts').getItemRaw('overpass-regular.otf')
+	const overpassFont = await useStorage('assets/server/fonts').getItemRaw('overpass-regular.otf')
 
-	const font = await pdf.embedFont(overpasFont)
+	const font = await pdf.embedFont(overpassFont)
 
 	const page = pdf.addPage()
 	const margin = 40
